@@ -14,21 +14,18 @@ def next_generation(grid):
                 for dc in [-1, 0, 1]
                 if (dr, dc) != (0, 0)
             )
-            if grid[r][c] == 1:
-                new_grid[r][c] = 1 if neighbors in [2, 3] else 0
-            else:
-                new_grid[r][c] = 1 if neighbors == 3 else 0
+            cell = grid[r][c]
+            new_grid[r][c] = 1 if neighbors == 3 or (cell and neighbors == 2) else 0
     return new_grid
 
-def display(grid):
+def display(grid, gen):
     os.system("cls" if os.name == "nt" else "clear")
-    for row in grid:
-        print("".join("■ " if cell else "  " for cell in row))
+    print("".join("■ " if cell else "  " for cell in row) for row in grid)  
+    print(f"Generation: {gen}")
 
 grid = create_grid(20, 40)
 
-for gen in range(100):
-    display(grid)
-    print(f"Generation: {gen + 1}")
+for gen in range(1, 101):
+    display(grid, gen)
     grid = next_generation(grid)
     time.sleep(0.15)
