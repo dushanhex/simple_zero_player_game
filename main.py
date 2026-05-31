@@ -20,7 +20,7 @@ def next_generation(grid):
 
 def display(grid, gen):
     os.system("cls" if os.name == "nt" else "clear")
-    print("".join("■ " if cell else "  " for cell in row) for row in grid)  
+    print("\n".join("".join("■ " if cell else "  " for cell in row) for row in grid))  # ✅ fixed
     print(f"Generation: {gen}")
 
 grid = create_grid(20, 40)
